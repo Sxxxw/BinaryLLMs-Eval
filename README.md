@@ -1,2 +1,2 @@
 # BinLLM-Eval
-Paper--Still a Long Way to Go: An Evaluation of Large Language Model in Binary Code Understanding
+Paper--How Far Have We Gone in Binary Code Understanding Using Large Language Models
