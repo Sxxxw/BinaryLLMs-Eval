@@ -3,6 +3,7 @@
 @requirements: termcolor, openai, tiktoken
 @usage: python3 thisfile.py
 '''
+import re
 import os
 import json
 import time
@@ -14,14 +15,15 @@ import tiktoken
 from termcolor import colored
         
 api_key_list = [
-                ('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', 'free')
+                ('sk-xxxxx', 'free')
                 ]             
 MODEL = "gpt-3.5-turbo-16k"
 tokenizer = tiktoken.encoding_for_model("gpt-3.5-turbo")
 MAX_TOKEN_LENGTH = 16000
 
-json_file_path = "../dataset/eval_dataset.json"
-save_file_path = "./gpt-3.5-turbo-16k_func_name.jsonl"
+json_file_path = "../dataset/dataset_x64_o0.json"
+match = re.search(r'_(\w+_\w+)', json_file_path)
+save_file_path = "./gpt-3.5-turbo-16k_func_name_{}.jsonl".format(match.group(1))
 
 PROMPT = """
 ### Instruction:
@@ -48,7 +50,7 @@ class KeyPool():
     '''
     code example:
     key_list = [
-        ('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', 'free'),
+        ('sk-xxxxx', 'free'),
     ]
     key_pool = KeyPool(key_list)
     while NEED_QUERY():

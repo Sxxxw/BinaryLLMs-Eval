@@ -61,7 +61,7 @@ def main(
     load_8bit: bool = False,
     batch_size: int = 1, 
     base_model_path: str = "/archive/LLMs/vicuna-7b-v1.5",
-    input_data_path = "../dataset/eval_dataset.json",
+    input_data_path = "../dataset/dataset_x64_o0.json",
 ):
     assert base_model_path, (
         "Please specify a --base_model, e.g. --base_model='bigcode/starcoder'"
@@ -82,7 +82,9 @@ def main(
         model = torch.compile(model)
 
     model_name = base_model_path.split('/')[-1]
-    output_path = model_name + "_func_name.json"
+    match = re.search(r'_(\w+_\w+)', input_data_path)
+    output_path = model_name + "_func_name_" + match.group(1) + ".json"
+    
     if os.path.exists(output_path):
         dataset, breakpoint = checkpoint(output_path)
     else:
